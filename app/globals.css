@@ -1,26 +1,429 @@
 @import "tailwindcss";
 
+/* ===== Light Mode (Default) ===== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === Core Palette === */
+  --background: #FAFAF9;
+  --background-secondary: #F5F5F4;
+  --background-tertiary: #E7E5E4;
+  --background-elevated: #FFFFFF;
+  
+  /* Dark text spectrum */
+  --foreground: #1C1917;
+  --foreground-secondary: #44403C;
+  --foreground-tertiary: #78716C;
+  --foreground-muted: #A8A29E;
+  
+  /* Borders */
+  --border: #D6D3D1;
+  --border-hover: #A8A29E;
+  --border-accent: #D97706;
+  
+  /* === Accent Colors === */
+  --accent-primary: #D97706;
+  --accent-primary-hover: #B45309;
+  --accent-primary-muted: rgba(217, 119, 6, 0.15);
+  
+  /* Success: Emerald (vibrant on light) */
+  --color-buy: #059669;
+  --color-buy-hover: #047857;
+  --color-buy-bg: rgba(5, 150, 105, 0.1);
+  --color-buy-border: rgba(5, 150, 105, 0.3);
+  
+  /* Danger: Rose (vibrant on light) */
+  --color-sell: #DC2626;
+  --color-sell-hover: #B91C1C;
+  --color-sell-bg: rgba(220, 38, 38, 0.1);
+  --color-sell-border: rgba(220, 38, 38, 0.3);
+  
+  /* Platform Colors */
+  --polymarket: #0891B2;
+  --opinion-labs: #EA580C;
+  
+  /* Status Colors */
+  --color-warning: #D97706;
+  --color-info: #2563EB;
+  --color-hot: #D97706;
+  
+  /* === Typography === */
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-mono: var(--font-ibm-plex-mono), 'Consolas', monospace;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  
+  /* === Spacing === */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  
+  /* === Shadows === */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(217, 119, 6, 0.15);
+  --shadow-glow-strong: 0 0 30px rgba(217, 119, 6, 0.25);
+  
+  /* === Transitions === */
+  --transition-fast: 100ms ease-out;
+  --transition-base: 180ms ease-out;
+  --transition-slow: 280ms ease-out;
 }
 
+/* ===== Dark Mode ===== */
+.dark {
+  --background: #0C0C0E;
+  --background-secondary: #161619;
+  --background-tertiary: #1C1C20;
+  --background-elevated: #222226;
+  
+  --foreground: #E4E4E7;
+  --foreground-secondary: #A1A1AA;
+  --foreground-tertiary: #71717A;
+  --foreground-muted: #52525B;
+  
+  --border: #2A2A2F;
+  --border-hover: #3F3F46;
+  
+  --accent-primary: #F59E0B;
+  --accent-primary-hover: #FBBF24;
+  --accent-primary-muted: rgba(245, 158, 11, 0.15);
+  
+  --color-buy: #34D399;
+  --color-buy-hover: #6EE7B7;
+  --color-buy-bg: rgba(52, 211, 153, 0.1);
+  --color-buy-border: rgba(52, 211, 153, 0.3);
+  
+  --color-sell: #F87171;
+  --color-sell-hover: #FCA5A5;
+  --color-sell-bg: rgba(248, 113, 113, 0.1);
+  --color-sell-border: rgba(248, 113, 113, 0.3);
+  
+  --polymarket: #22D3EE;
+  --opinion-labs: #FB923C;
+  
+  --color-warning: #FBBF24;
+  --color-info: #60A5FA;
+  --color-hot: #F59E0B;
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.25);
+  --shadow-glow-strong: 0 0 30px rgba(245, 158, 11, 0.4);
+}
+
+/* ===== Tailwind Theme Extension ===== */
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+  --color-background-elevated: var(--background-elevated);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-tertiary: var(--foreground-tertiary);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --color-accent: var(--accent-primary);
+  --color-accent-hover: var(--accent-primary-hover);
+  --color-buy: var(--color-buy);
+  --color-buy-hover: var(--color-buy-hover);
+  --color-sell: var(--color-sell);
+  --color-sell-hover: var(--color-sell-hover);
+  --color-polymarket: var(--polymarket);
+  --color-opinion: var(--opinion-labs);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ===== Base Styles ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ===== Scrollbar Styles ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: var(--radius-xs);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-tertiary);
+}
+
+/* ===== Animation Keyframes ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(12px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes staggerIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(16px) scale(0.98); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 4px var(--accent-primary-muted); 
+  }
+  50% { 
+    box-shadow: 0 0 16px var(--accent-primary-muted); 
+  }
+}
+
+@keyframes pulseHot {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { 
+    border-color: var(--border); 
+  }
+  50% { 
+    border-color: var(--accent-primary); 
+  }
+}
+
+@keyframes numberFlash {
+  0% { 
+    background-color: transparent;
+  }
+  50% { 
+    background-color: rgba(245, 158, 11, 0.2);
+  }
+  100% { 
+    background-color: transparent;
+  }
+}
+
+/* ===== Utility Classes ===== */
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn var(--transition-base) ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp var(--transition-slow) ease-out forwards;
+}
+
+.animate-stagger-in {
+  animation: staggerIn 400ms ease-out forwards;
+  opacity: 0;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.animate-pulse-hot {
+  animation: pulseHot 1.5s ease-in-out infinite;
+}
+
+.animate-number-flash {
+  animation: numberFlash 600ms ease-out;
+}
+
+/* Stagger delays */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+.stagger-7 { animation-delay: 350ms; }
+.stagger-8 { animation-delay: 400ms; }
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--background-tertiary) 25%,
+    var(--border) 50%,
+    var(--background-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Typography */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Accent text */
+.text-accent {
+  color: var(--accent-primary);
+}
+
+.text-accent-gradient {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card accent border */
+.card-accent {
+  border-left: 2px solid var(--accent-primary);
+}
+
+.card-accent-glow {
+  border-left: 2px solid var(--accent-primary);
+  box-shadow: -4px 0 12px var(--accent-primary-muted);
+}
+
+/* Glow effects */
+.glow-accent {
+  box-shadow: var(--shadow-glow);
+}
+
+.glow-accent-strong {
+  box-shadow: var(--shadow-glow-strong);
+}
+
+/* Price change styles */
+.price-up {
+  color: var(--color-buy);
+}
+
+.price-down {
+  color: var(--color-sell);
+}
+
+/* Terminal-inspired data display */
+.data-cell {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+/* Hot indicator */
+.hot-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-hot);
+  border-radius: 50%;
+  animation: pulseHot 1.5s ease-in-out infinite;
+}
+
+/* Focus ring */
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Grid background pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(42, 42, 47, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 42, 47, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Subtle gradient overlays */
+.gradient-fade-bottom {
+  background: linear-gradient(to top, var(--background), transparent);
+}
+
+.gradient-fade-right {
+  background: linear-gradient(to left, var(--background), transparent);
+}
+
+/* Interactive hover scale */
+.hover-lift {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Uppercase label style */
+.label-caps {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--foreground-tertiary);
 }
