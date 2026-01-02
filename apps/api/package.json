@@ -1,0 +1,24 @@
+{
+  "name": "@predict-x/api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup src/index.ts --format esm --dts",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.7.11",
+    "@hono/node-server": "^1.14.2",
+    "@predict-x/types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.4",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.1.4",
+    "@types/node": "^20.19.27"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///Users/tsuizen/Documents/Code/Web3/zentrade/apps/web/components/providers/ThemeProvider.tsx"],"sourcesContent":["\"use client\";\n\nimport { ThemeProvider as NextThemesProvider } from \"next-themes\";\nimport { ReactNode } from \"react\";\n\ninterface ThemeProviderProps {\n  children: ReactNode;\n}\n\nexport function ThemeProvider({ children }: ThemeProviderProps) {\n  return (\n    <NextThemesProvider\n      attribute=\"class\"\n      defaultTheme=\"dark\"\n      enableSystem={false}\n      disableTransitionOnChange={false}\n    >\n      {children}\n    </NextThemesProvider>\n  );\n}\n"],"names":[],"mappings":";;;;;AAEA;AAFA;;;AASO,SAAS,cAAc,EAAE,QAAQ,EAAsB;IAC5D,qBACE,wbAAC,kVAAkB;QACjB,WAAU;QACV,cAAa;QACb,cAAc;QACd,2BAA2B;kBAE1B;;;;;;AAGP"}}]
+}
