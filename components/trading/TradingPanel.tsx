@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Lock, Info } from "lucide-react";
 import { Button, Input } from "@/components/ui";
 import { Market, formatPrice } from "@/lib/mockData";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface TradingPanelProps {
   market: Market;
@@ -31,7 +31,7 @@ export function TradingPanel({ market }: TradingPanelProps) {
       <div className="grid grid-cols-2 gap-2 mb-4">
         <button
           onClick={() => setSide("yes")}
-          className={clsx(
+          className={cn(
             "py-3 rounded-lg font-semibold text-sm transition-all",
             side === "yes"
               ? "bg-buy text-white shadow-lg"
@@ -42,7 +42,7 @@ export function TradingPanel({ market }: TradingPanelProps) {
         </button>
         <button
           onClick={() => setSide("no")}
-          className={clsx(
+          className={cn(
             "py-3 rounded-lg font-semibold text-sm transition-all",
             side === "no"
               ? "bg-sell text-white shadow-lg"
@@ -61,10 +61,10 @@ export function TradingPanel({ market }: TradingPanelProps) {
         <div className="flex bg-background-tertiary rounded-lg p-1">
           <button
             onClick={() => setOrderType("market")}
-            className={clsx(
+            className={cn(
               "flex-1 py-2 text-sm font-medium rounded-md transition-all",
               orderType === "market"
-                ? "bg-background-secondary text-foreground shadow"
+                ? "bg-accent-solid text-white shadow"
                 : "text-foreground-tertiary hover:text-foreground"
             )}
           >
@@ -72,10 +72,10 @@ export function TradingPanel({ market }: TradingPanelProps) {
           </button>
           <button
             onClick={() => setOrderType("limit")}
-            className={clsx(
+            className={cn(
               "flex-1 py-2 text-sm font-medium rounded-md transition-all",
               orderType === "limit"
-                ? "bg-background-secondary text-foreground shadow"
+                ? "bg-accent-solid text-white shadow"
                 : "text-foreground-tertiary hover:text-foreground"
             )}
           >
@@ -90,13 +90,18 @@ export function TradingPanel({ market }: TradingPanelProps) {
           <label className="text-xs text-foreground-tertiary block mb-2">
             Limit Price
           </label>
-          <Input
-            type="number"
-            placeholder="0.00"
-            value={limitPrice}
-            onChange={(e) => setLimitPrice(e.target.value)}
-            rightIcon={<span className="text-sm">USDC</span>}
-          />
+          <div className="relative">
+            <Input
+              type="number"
+              placeholder="0.00"
+              value={limitPrice}
+              onChange={(e) => setLimitPrice(e.target.value)}
+              className="pr-14"
+            />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+              USDC
+            </span>
+          </div>
         </div>
       )}
 
@@ -105,13 +110,18 @@ export function TradingPanel({ market }: TradingPanelProps) {
         <label className="text-xs text-foreground-tertiary block mb-2">
           Amount
         </label>
-        <Input
-          type="number"
-          placeholder="0.00"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          rightIcon={<span className="text-sm">USDC</span>}
-        />
+        <div className="relative">
+          <Input
+            type="number"
+            placeholder="0.00"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="pr-14"
+          />
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            USDC
+          </span>
+        </div>
       </div>
 
       {/* Quick Amount Buttons */}
@@ -120,14 +130,14 @@ export function TradingPanel({ market }: TradingPanelProps) {
           <button
             key={qa}
             onClick={() => setAmount(qa.toString())}
-            className="flex-1 py-2 text-sm font-medium bg-background-tertiary text-foreground-secondary rounded-lg hover:bg-background hover:text-foreground transition-all"
+            className="flex-1 py-2 text-sm font-medium bg-background-tertiary text-foreground-secondary rounded-lg hover:bg-background-elevated hover:text-foreground border border-border transition-all"
           >
             ${qa}
           </button>
         ))}
         <button
           onClick={() => setAmount("10000")}
-          className="flex-1 py-2 text-sm font-medium bg-background-tertiary text-foreground-secondary rounded-lg hover:bg-background hover:text-foreground transition-all"
+          className="flex-1 py-2 text-sm font-medium bg-background-tertiary text-foreground-secondary rounded-lg hover:bg-background-elevated hover:text-foreground border border-border transition-all"
         >
           Max
         </button>

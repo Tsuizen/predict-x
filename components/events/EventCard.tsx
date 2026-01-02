@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Star, TrendingUp, Clock } from "lucide-react";
 import { Card, Badge, Button } from "@/components/ui";
 import { Market, formatCurrency, formatPrice, formatPercentage, formatDate } from "@/lib/mockData";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface EventCardProps {
   market: Market;
@@ -20,11 +20,8 @@ export function EventCard({ market, index = 0 }: EventCardProps) {
 
   return (
     <Card 
-      hover 
-      variant="accent"
-      padding="none" 
-      className={clsx(
-        "overflow-hidden animate-stagger-in",
+      className={cn(
+        "overflow-hidden animate-stagger-in p-0 gap-0 hover:border-accent-primary/50 hover:shadow-md transition-all",
         index === 0 && "stagger-1",
         index === 1 && "stagger-2",
         index === 2 && "stagger-3",
@@ -72,7 +69,7 @@ export function EventCard({ market, index = 0 }: EventCardProps) {
                 {formatPrice(market.yesPrice)}
               </span>
               <span
-                className={clsx("text-xs font-mono font-medium tabular-nums", priceChangeClass(market.yesChange24h))}
+                className={cn("text-xs font-mono font-medium tabular-nums", priceChangeClass(market.yesChange24h))}
               >
                 {formatPercentage(market.yesChange24h)}
               </span>
@@ -85,7 +82,7 @@ export function EventCard({ market, index = 0 }: EventCardProps) {
                 {formatPrice(market.noPrice)}
               </span>
               <span
-                className={clsx("text-xs font-mono font-medium tabular-nums", priceChangeClass(market.noChange24h))}
+                className={cn("text-xs font-mono font-medium tabular-nums", priceChangeClass(market.noChange24h))}
               >
                 {formatPercentage(market.noChange24h)}
               </span>

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Search, SlidersHorizontal, ArrowUpDown } from "lucide-react";
 import { Input, Button } from "@/components/ui";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface EventFiltersProps {
   searchQuery: string;
@@ -32,12 +32,13 @@ export function EventFilters({
   return (
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6">
       {/* Search */}
-      <div className="flex-1">
+      <div className="flex-1 relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           placeholder={t("action.search")}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          leftIcon={<Search className="h-4 w-4" />}
+          className="pl-9"
         />
       </div>
 
@@ -52,11 +53,11 @@ export function EventFilters({
             <button
               key={option.id}
               onClick={() => onSortChange(option.id)}
-              className={clsx(
+              className={cn(
                 "px-3 py-1.5 text-xs font-medium rounded-sm transition-all",
                 sortBy === option.id
-                  ? "bg-accent-primary text-background"
-                  : "text-foreground-tertiary hover:text-foreground"
+                  ? "bg-accent-solid text-white shadow-sm"
+                  : "text-foreground-tertiary hover:text-foreground hover:bg-background-tertiary"
               )}
             >
               {option.name}
@@ -68,7 +69,7 @@ export function EventFilters({
       {/* Mobile Filter Button */}
       <Button
         variant="secondary"
-        size="md"
+        size="default"
         className="lg:hidden"
         onClick={onFilterClick}
       >

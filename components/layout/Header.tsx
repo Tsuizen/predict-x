@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Wallet, Menu, Sun, Moon, Languages } from "lucide-react";
+import { Wallet, Menu, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui";
@@ -14,25 +14,22 @@ interface HeaderProps {
 
 export function Header({ onMenuClick }: HeaderProps) {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations();
   const [mounted, setMounted] = useState(false);
-  const [locale, setLocale] = useState("en");
+  const [locale, setLocale] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
-    // Read locale from cookie
     const cookieLocale = document.cookie
       .split("; ")
       .find((row) => row.startsWith("locale="))
       ?.split("=")[1];
-    if (cookieLocale) {
-      setLocale(cookieLocale);
-    }
+    setLocale(cookieLocale || "en");
   }, []);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   const toggleLocale = () => {
@@ -60,11 +57,8 @@ export function Header({ onMenuClick }: HeaderProps) {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            {/* Geometric logo mark */}
             <div className="relative flex h-9 w-9 items-center justify-center">
-              {/* Outer ring */}
               <div className="absolute inset-0 border-2 border-accent-primary rounded-sm rotate-45 group-hover:rotate-[50deg] transition-transform duration-300" />
-              {/* Inner square */}
               <div className="w-3 h-3 bg-accent-primary rounded-[1px]" />
             </div>
             <span className="text-xl font-display tracking-tight hidden sm:block">
@@ -88,34 +82,36 @@ export function Header({ onMenuClick }: HeaderProps) {
 
         {/* Right: Theme Toggle, Language, Connect Wallet */}
         <div className="flex items-center gap-2">
-          {/* Language Toggle */}
+          {/* Language Toggle - Fixed width to prevent layout shift */}
           <button
             onClick={toggleLocale}
-            className="p-2 hover:bg-background-tertiary rounded-md transition-colors text-foreground-secondary hover:text-foreground focus-ring"
-            title={locale === "en" ? "切换到中文" : "Switch to English"}
+            className="w-10 h-10 flex items-center justify-center hover:bg-background-tertiary rounded-md transition-colors text-foreground-secondary hover:text-foreground focus-ring"
+            title={mounted && locale === "en" ? "切换到中文" : "Switch to English"}
           >
-            <span className="text-xs font-mono font-medium w-6 inline-block text-center">
-              {locale === "en" ? "中" : "EN"}
+            <span className="text-xs font-mono font-medium">
+              {mounted ? (locale === "en" ? "中" : "EN") : ""}
             </span>
           </button>
 
-          {/* Theme Toggle */}
-          {mounted && (
-            <button
-              onClick={toggleTheme}
-              className="p-2 hover:bg-background-tertiary rounded-md transition-colors text-foreground-secondary hover:text-foreground focus-ring"
-              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {theme === "dark" ? (
+          {/* Theme Toggle - Fixed width to prevent layout shift */}
+          <button
+            onClick={toggleTheme}
+            className="w-10 h-10 flex items-center justify-center hover:bg-background-tertiary rounded-md transition-colors text-foreground-secondary hover:text-foreground focus-ring"
+            title={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {mounted ? (
+              resolvedTheme === "dark" ? (
                 <Sun className="h-5 w-5" />
               ) : (
                 <Moon className="h-5 w-5" />
-              )}
-            </button>
-          )}
+              )
+            ) : (
+              <div className="h-5 w-5" /> // Placeholder to prevent layout shift
+            )}
+          </button>
 
           {/* Connect Wallet Button */}
-          <Button variant="primary" size="md">
+          <Button variant="primary" size="default">
             <Wallet className="h-4 w-4" />
             <span className="hidden sm:inline">{t("action.connectWallet")}</span>
           </Button>

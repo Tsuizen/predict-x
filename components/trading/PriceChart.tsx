@@ -64,8 +64,8 @@ export function PriceChart({ title, yesPrice, noPrice, yesChange }: PriceChartPr
             className={clsx(
               "flex-1 py-1.5 text-xs font-medium rounded-md transition-all",
               index === 2
-                ? "bg-brand text-white"
-                : "bg-background-tertiary text-foreground-tertiary hover:text-foreground"
+                ? "bg-accent-solid text-white"
+                : "bg-background-tertiary text-foreground-tertiary hover:text-foreground hover:bg-background-elevated"
             )}
           >
             {tf}

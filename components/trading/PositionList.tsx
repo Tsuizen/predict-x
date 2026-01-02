@@ -3,7 +3,7 @@
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { Card, Badge } from "@/components/ui";
 import { Position, formatPrice } from "@/lib/mockData";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 interface PositionListProps {
   positions: Position[];
@@ -12,7 +12,7 @@ interface PositionListProps {
 export function PositionList({ positions }: PositionListProps) {
   if (positions.length === 0) {
     return (
-      <Card padding="lg">
+      <Card className="p-6">
         <div className="text-center py-8">
           <div className="text-4xl mb-3">📊</div>
           <h3 className="text-sm font-semibold text-foreground mb-1">
@@ -84,7 +84,7 @@ export function PositionList({ positions }: PositionListProps) {
                 <div>
                   <span className="text-foreground-tertiary block mb-0.5">P&L</span>
                   <span
-                    className={clsx(
+                    className={cn(
                       "font-medium flex items-center gap-1",
                       isProfit ? "text-buy" : "text-sell"
                     )}
